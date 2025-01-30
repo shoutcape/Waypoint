@@ -1,0 +1,73 @@
+.inputForm {
+  display: flex;
+  justify-self: center;
+  margin-bottom: 1rem;
+  gap: 5px;
+  position: relative;
+
+  .submitButton {
+    position: absolute;
+    right: 0;
+    width: 2.5rem;
+  }
+}
+
+.appContainer {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+  justify-self: center;
+  color: black;
+  max-width: 95%;
+}
+
+.inputField {
+  color: black;
+  padding-right: 3rem;
+}
+
+.responseContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.responseTitle {
+  font-size: 26px; 
+  max-width: 30rem;
+}
+
+.responseIntroduction {
+  margin-bottom: 0.5rem;
+  max-width: 40rem;
+
+}
+
+.phaseTitle {
+  display: flex;
+  gap: 5px;
+  font-size: 18px;
+}
+
+.phaseContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: al;
+}
+
+.stepContainer {
+  margin-left: 1rem;
+}
+
+.stepTitle {
+}
+
+.instructionsList {
+  max-width: 35rem;
+  margin-left: 1rem;
+}
+
+.instructionItem {
+}
+
