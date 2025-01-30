@@ -5,6 +5,7 @@ import styles from './page.module.css'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { LuWaypoints } from "react-icons/lu";
+import { ModeToggle } from '@/components/ui/mode-toggle';
 
 type Step = {
   StepName: string;
@@ -26,6 +27,7 @@ type Roadmap = {
 const Home = () => {
   const [response, setResponse] = useState<Roadmap | null>(null);
   const [error, setError] = useState<string>('')
+  const [loading, setLoading] = useState<boolean>(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
   const handleSubmit = async (event: FormEvent) => {
@@ -35,9 +37,13 @@ const Home = () => {
       setError('Input is empty')
       return 
     }
+    setResponse(null);
+    setLoading(true)
     setError('')
     const result = await createAnswer(definedGoal);
     if (!result || !result.content) {
+      setLoading(false)
+      setError('Error: Try again')
       return
     }
     console.table(result.content);
@@ -48,45 +54,57 @@ const Home = () => {
     } catch (error) {
       console.log('error', error)
       setError('Error: Try again')
+      setLoading(false)
     }
+    setLoading(false)
   }
 
   return (
-    <div className={styles.appContainer}>
-      <div>
-        <form className={styles.inputForm} onSubmit={handleSubmit}>
-          <Input type='text' ref={inputRef} className={styles.inputField} />
-          <Button type='submit' className={styles.submitButton}>
-            <LuWaypoints/>
-          </Button>
-        </form>
+    <div>
+      <div suppressHydrationWarning className={styles.darkModeToggle}>
+        <ModeToggle/>
       </div>
-      {response && !error ? (
-        <div className={styles.responseContainer}>
-          <h1 className={styles.responseTitle}>{response.Title}</h1>
-          <h2 className={styles.responseIntroduction}>{response.Introduction}</h2>
-          {response.Phases.map((phase: Phase, index: number) => (
-            <div key={index} className={styles.phaseContainer}>
-              <div className={styles.phaseTitle}>
-                <p>{phase.PhaseName}</p>
-                <p>({phase.Duration})</p>
-              </div>
-              {phase.Steps.map((step: any, stepIndex: number) => (
-                <div key={stepIndex} className={styles.stepContainer}>
-                  <h4 className={styles.stepTitle}>{step.Step}</h4>
-                  <ul className={styles.instructionsList}>
-                    {step.Instructions.map((instruction: string, instructionIndex: number) => (
-                      <li key={instructionIndex} className={styles.instructionItem}>{instruction}</li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          ))}
+      <div className={styles.appContainer}>
+        <div>
+          <form className={styles.inputForm} onSubmit={handleSubmit}>
+            <Input type='text' ref={inputRef} className={styles.inputField} />
+            <Button type='submit' className={styles.submitButton} disabled={loading ? true : false}>
+              <LuWaypoints/>
+            </Button>
+          </form>
         </div>
-      ) : (
-        <p className='text-center'>{error}</p>
-      )}
+        {loading && (
+          <div>Loading..</div>
+        )}
+        {response && !error ? (
+          <div className={styles.responseContainer}>
+            <div>
+              <h1 className={styles.responseTitle}>{response.Title}</h1>
+              <h2 className={styles.responseIntroduction}>{response.Introduction}</h2>
+            </div>
+            {response.Phases.map((phase: Phase, index: number) => (
+              <div key={index} className={styles.phaseContainer}>
+                <div className={styles.phaseTitle}>
+                  <p>{phase.PhaseName}</p>
+                  <p>({phase.Duration})</p>
+                </div>
+                {phase.Steps.map((step: any, stepIndex: number) => (
+                  <div key={stepIndex} className={styles.stepContainer}>
+                    <h4 className={styles.stepTitle}>{step.Step}</h4>
+                    <ul className={styles.instructionsList}>
+                      {step.Instructions.map((instruction: string, instructionIndex: number) => (
+                        <li key={instructionIndex} className={styles.instructionItem}>{instruction}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        ) : (
+            <p className='text-center'>{error}</p>
+          )}
+      </div>
     </div>
   );
 };
