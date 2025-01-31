@@ -18,11 +18,11 @@ Generate a structured roadmap for ${definedGoal}. Use the following format:
             "Introduction": "[Brief introduction]",
             "Phases": [
               {
-                "PhaseName": "Phase(correct language) X(number): [Phase Name]",
+                "PhaseName": "Phase(correct language) X(use Numbers such as 1, 2, 3, ...): [Phase Name]",
                 "Duration": "[Phase Duration]",
                 "Steps": [
                   {
-                    "Step": "Step X(number)(correct language, must be different than phase): [Step Name]",
+                    "Step": "Step X(use Numbers such as 1, 2, 3, ...)(correct language, must be different than phase): [Step Name]",
                     "Instructions": [
                       "[Instruction 1]",
                       "[Instruction 2]"

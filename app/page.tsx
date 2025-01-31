@@ -1,6 +1,6 @@
 'use client';
 import { createAnswer } from '@/api';
-import { useState, useEffect, FormEvent, useRef } from 'react';
+import { useState, FormEvent, useRef } from 'react';
 import styles from './page.module.css'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -79,7 +79,7 @@ const Home = () => {
         {response && !error ? (
           <div className={styles.responseContainer}>
             <div>
-              <h1 className={styles.responseTitle}>{response.Title}</h1>
+              <h1 className={`${styles.responseTitle}`}>{response.Title}</h1>
               <h2 className={styles.responseIntroduction}>{response.Introduction}</h2>
             </div>
             {response.Phases.map((phase: Phase, index: number) => (
