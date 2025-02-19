@@ -1,7 +1,7 @@
 import Together from 'together-ai';
 
 const together = new Together({
-  apiKey: process.env.NEXT_PUBLIC_API_KEY,
+  apiKey: process.env.API_KEY,
 });
 
 export const createAnswer = async (definedGoal: string) => {

@@ -88,9 +88,9 @@ const Home = () => {
                   <p>{phase.PhaseName}</p>
                   <p>({phase.Duration})</p>
                 </div>
-                {phase.Steps.map((step: any, stepIndex: number) => (
+                {phase.Steps.map((step: Step, stepIndex: number) => (
                   <div key={stepIndex} className={styles.stepContainer}>
-                    <h4 className={styles.stepTitle}>{step.Step}</h4>
+                    <h4 className={styles.stepTitle}>{step.StepName}</h4>
                     <ul className={styles.instructionsList}>
                       {step.Instructions.map((instruction: string, instructionIndex: number) => (
                         <li key={instructionIndex} className={styles.instructionItem}>{instruction}</li>
